@@ -12,10 +12,20 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+origins = [
+    "http://http://localhost:8000",
+    "https://uicbookstore.netlify.app",
+    
+]
+
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://139.59.246.2"],
-    allow_methods=["*"],
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"]
+    allow_headers=["*"]
 )
 
 # Include CRUD routes from modules
