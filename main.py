@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://http://localhost:8000",
+    "http://localhost:8000",
     "https://uicbookstore.netlify.app",
 ]
 
