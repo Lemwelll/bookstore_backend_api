@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 02:34 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- Generation Time: May 06, 2024 at 05:20 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `admin` (
   `adminID` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
@@ -61,14 +61,14 @@ CREATE TABLE `book` (
   `bookTitle` varchar(50) NOT NULL,
   `bookquantityAvailability` int(11) NOT NULL,
   `bookpriceDetails` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `book`
 --
 
 INSERT INTO `book` (`mngstore`, `bookID`, `mngbkstore`, `bookTitle`, `bookquantityAvailability`, `bookpriceDetails`) VALUES
-('test1', 2, '11', 'testdev', 1, 111),
+('test1', 2, 'test1', 'testdev', 100, 111),
 ('test3', 3, '33', 'testdev3', 3, 333),
 ('test5', 5, '55', 'testdev5', 5, 555),
 ('test5', 7, 'dsada', 'dsadsad', 123, 2112);
@@ -88,7 +88,7 @@ CREATE TABLE `reservationdetails` (
   `studentID` int(11) NOT NULL,
   `items` longtext NOT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'pending'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reservationdetails`
@@ -104,7 +104,12 @@ INSERT INTO `reservationdetails` (`createDate`, `reservationdetailsID`, `expiryD
 ('Mon Apr 29 2024 11:19:57 GMT+0800 (China Standard Time)', 42, '0000-00-00', 2, 24642, 2, '\"[{\\\"id\\\":1,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (PE)\\\",\\\"price\\\":12321,\\\"stock\\\":1,\\\"size\\\":\\\"M\\\",\\\"image\\\":\\\"\\\"},{\\\"id\\\":1,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (PE)\\\",\\\"price\\\":12321,\\\"stock\\\":1,\\\"size\\\":\\\"XXXL\\\",\\\"image\\\":\\\"\\\"}]\"', 'declined'),
 ('Mon Apr 29 2024 11:39:51 GMT+0800 (China Standard Time)', 43, '0000-00-00', 4, 1554, 1, '\"[{\\\"id\\\":3,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (uniform)\\\",\\\"price\\\":222,\\\"stock\\\":1,\\\"size\\\":\\\"S\\\",\\\"image\\\":\\\"\\\"},{\\\"id\\\":5,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev5\\\",\\\"price\\\":555,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"},{\\\"id\\\":4,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev4\\\",\\\"price\\\":444,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"},{\\\"id\\\":3,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev3\\\",\\\"price\\\":333,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"}]\"', 'declined'),
 ('Mon Apr 29 2024 11:46:58 GMT+0800 (China Standard Time)', 44, '0000-00-00', 4, 999, 1, '\"[{\\\"id\\\":2,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (uniform)\\\",\\\"price\\\":111,\\\"stock\\\":1,\\\"size\\\":\\\"M\\\",\\\"image\\\":\\\"\\\"},{\\\"id\\\":3,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (uniform)\\\",\\\"price\\\":222,\\\"stock\\\":1,\\\"size\\\":\\\"S\\\",\\\"image\\\":\\\"\\\"},{\\\"id\\\":4,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (PE)\\\",\\\"price\\\":333,\\\"stock\\\":1,\\\"size\\\":\\\"L\\\",\\\"image\\\":\\\"\\\"},{\\\"id\\\":4,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"School Uniform (PE)\\\",\\\"price\\\":333,\\\"stock\\\":1,\\\"size\\\":\\\"XXXL\\\",\\\"image\\\":\\\"\\\"}]\"', 'completed'),
-('Mon Apr 29 2024 11:47:55 GMT+0800 (China Standard Time)', 45, '0000-00-00', 3, 3111, 1, '\"[{\\\"id\\\":4,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev4\\\",\\\"price\\\":444,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"},{\\\"id\\\":5,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev5\\\",\\\"price\\\":555,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"},{\\\"id\\\":7,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"dsadsad\\\",\\\"price\\\":2112,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"}]\"', 'completed');
+('Mon Apr 29 2024 11:47:55 GMT+0800 (China Standard Time)', 45, '0000-00-00', 3, 3111, 1, '\"[{\\\"id\\\":4,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev4\\\",\\\"price\\\":444,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"},{\\\"id\\\":5,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev5\\\",\\\"price\\\":555,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"},{\\\"id\\\":7,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"dsadsad\\\",\\\"price\\\":2112,\\\"stock\\\":1,\\\"image\\\":\\\"\\\"}]\"', 'completed'),
+('Wed May 01 2024 20:39:29 GMT+0800 (Philippine Standard Time)', 46, '0000-00-00', 1, 333, 2, '\"[{\\\"id\\\":3,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev3\\\",\\\"price\\\":333,\\\"stock\\\":1,\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test3\\\"}]\"', 'completed'),
+('Wed May 01 2024 20:42:27 GMT+0800 (Philippine Standard Time)', 47, '0000-00-00', 3, 999, 2, '\"[{\\\"id\\\":2,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev\\\",\\\"price\\\":111,\\\"stock\\\":1,\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test1\\\"},{\\\"id\\\":3,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev3\\\",\\\"price\\\":333,\\\"stock\\\":1,\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test3\\\"},{\\\"id\\\":5,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev5\\\",\\\"price\\\":555,\\\"stock\\\":1,\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test5\\\"}]\"', 'completed'),
+('Wed May 01 2024 21:05:17 GMT+0800 (Philippine Standard Time)', 48, '0000-00-00', 2, 333, 2, '\"[{\\\"id\\\":2,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"uniform\\\",\\\"price\\\":111,\\\"stock\\\":1,\\\"size\\\":\\\"M\\\",\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test1\\\"},{\\\"id\\\":3,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"uniform\\\",\\\"price\\\":222,\\\"stock\\\":1,\\\"size\\\":\\\"S\\\",\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test2\\\"}]\"', 'completed'),
+('Wed May 01 2024 21:22:34 GMT+0800 (Philippine Standard Time)', 49, '0000-00-00', 2, 555, 2, '\"[{\\\"id\\\":3,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"uniform\\\",\\\"price\\\":222,\\\"stock\\\":1,\\\"size\\\":\\\"S\\\",\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test2\\\"},{\\\"id\\\":4,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"PE Senior High\\\",\\\"price\\\":333,\\\"stock\\\":1,\\\"size\\\":\\\"L\\\",\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test3\\\"}]\"', 'completed'),
+('Wed May 01 2024 23:09:12 GMT+0800 (Philippine Standard Time)', 50, '0000-00-00', 3, 611, 4, '\"[{\\\"id\\\":2,\\\"category\\\":\\\"book\\\",\\\"name\\\":\\\"testdev\\\",\\\"price\\\":111,\\\"stock\\\":1,\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test1\\\"},{\\\"id\\\":2,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"College Uniform\\\",\\\"price\\\":250,\\\"stock\\\":1,\\\"size\\\":\\\"M\\\",\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test1\\\"},{\\\"id\\\":2,\\\"category\\\":\\\"uniform\\\",\\\"name\\\":\\\"College Uniform\\\",\\\"price\\\":250,\\\"stock\\\":1,\\\"size\\\":\\\"XXXL\\\",\\\"image\\\":\\\"\\\",\\\"mngstore\\\":\\\"test1\\\"}]\"', 'completed');
 
 -- --------------------------------------------------------
 
@@ -118,7 +123,7 @@ CREATE TABLE `student` (
   `lastName` varchar(100) NOT NULL,
   `uicEmail` varchar(250) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `student`
@@ -127,7 +132,8 @@ CREATE TABLE `student` (
 INSERT INTO `student` (`studentID`, `firstName`, `lastName`, `uicEmail`, `password`) VALUES
 (1, 'Raldin', 'Casidar', 'raldin.disomimba13@gmail.com', 'dindin23'),
 (2, 'Juan', 'Luna', 'marasigan@gmail.com', 'dindin23'),
-(3, 'Sheen', 'Lee', 'sheenlee@gmail.com', 'dindin23');
+(3, 'Sheen', 'Lee', 'sheenlee@gmail.com', 'dindin23'),
+(4, 'Lemwel', 'Bayson', 'Lem@uic.edu.ph', '123213212');
 
 -- --------------------------------------------------------
 
@@ -142,19 +148,19 @@ CREATE TABLE `uniform` (
   `size` varchar(30) NOT NULL,
   `uniformQuantityAvailability` int(11) NOT NULL,
   `uniformPriceDetails` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `uniform`
 --
 
 INSERT INTO `uniform` (`mngstore`, `uniformID`, `type`, `size`, `uniformQuantityAvailability`, `uniformPriceDetails`) VALUES
-('test1', 2, 'uniform', 'M', 1, 111),
+('test1', 2, 'College Uniform', 'M', 100, 250),
 ('test2', 3, 'uniform', 'S', 22, 222),
-('test3', 4, 'PE', 'L', 3, 333),
+('test3', 4, 'PE Senior High', 'L', 3, 333),
 ('test4', 5, 'Polo', 'XL', 4, 444),
 ('test5', 6, 'PE', 'XXL', 5, 555),
-('test', 13, 'PE22', 'XL', 1, 50);
+('test', 13, 'PE22', 'XL', 100, 50);
 
 -- --------------------------------------------------------
 
@@ -167,7 +173,7 @@ CREATE TABLE `uniformdetails` (
   `reservationdetailsID` int(11) NOT NULL,
   `uniformID` int(11) NOT NULL,
   `uniformQuantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `uniformdetails`
@@ -236,13 +242,13 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT for table `reservationdetails`
 --
 ALTER TABLE `reservationdetails`
-  MODIFY `reservationdetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `reservationdetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `studentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `uniform`
