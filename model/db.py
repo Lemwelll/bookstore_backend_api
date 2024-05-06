@@ -15,7 +15,7 @@ db_config = {
     "host": "139.59.246.2",
     "user": "thisisbookstore",
     "password": "thisisgrp13",
-    "database": "dbgrp13",
+    "database": "bookstore_grp13",
     "port": 3306,
 }
 
