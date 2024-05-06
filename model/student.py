@@ -21,7 +21,7 @@ async def read_student(
     db=Depends(get_db)
 ):
     query = "SELECT studentID, firstName, lastName, uicEmail, password FROM student WHERE studentID = %s"
-    db[0].execute(query, (uicEmail, password))
+    db[0].execute(query, (student_id,))
     student = db[0].fetchone()
     if student:
         return {"studentID": student[0], "firstName": student[1], "lastName": student[2], "uicEmail": student[3], "password": student[4]}

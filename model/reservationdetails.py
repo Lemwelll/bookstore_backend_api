@@ -94,12 +94,13 @@ async def read_reservation_by_id(
     reservation_id: int, 
     db=Depends(get_db)
 ):
-    query = "SELECT reservationdetailsID, createDate, expiryDate, numofItems, totalAmount, studentID, items FROM reservationdetails WHERE reservationID = %s"
+    query = "SELECT reservationdetailsID, createDate, expiryDate, numofItems, totalAmount, studentID, items FROM reservationdetails WHERE reservationdetailsID = %s"
     db[0].execute(query, (reservation_id,))
     reservationdetails = db[0].fetchone()
     if reservationdetails:
         return {"reservationdetailsID": reservationdetails[0], "createDate": reservationdetails[1], "expiryDate": reservationdetails[2], "numofItems": reservationdetails[3], "totalAmount": reservationdetails[4], "studentID": reservationdetails[5], "items": reservationdetails[6]}
     raise HTTPException(status_code=404, detail="Reservation not found")
+
 
 
 @ReservationdetailsRouter.post("/reservationdetails/", response_model=dict, responses={400: {"description": "Bad Request"}, 413: {"description": "Payload Too Large"}})
