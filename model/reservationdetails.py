@@ -3,6 +3,11 @@ from fastapi import Depends, HTTPException, APIRouter, Form, Body
 from .db import get_db
 import json
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
 ReservationdetailsRouter = APIRouter(tags=["Reservation Details"])
 
 # CRUD operations
@@ -113,13 +118,34 @@ async def create_reservation(
     items: str = Form(...),  # expect a list of dictionary, each dictionary containing 'bookID' and 'quantity'
     db=Depends(get_db),
 ):
-    query = "INSERT INTO reservationdetails (createDate, expiryDate, numofItems, totalAmount, studentID, items) VALUES (%s, %s, %s, %s, %s, %s)"
     items_str = json.dumps(items)
+    items_list = json.loads(items)
+    
+    query = "INSERT INTO reservationdetails (createDate, expiryDate, numofItems, totalAmount, studentID, items) VALUES (%s, %s, %s, %s, %s, %s)"
+    
     db[0].execute(query, (createDate, expiryDate, numofItems, totalAmount, studentID, items_str))
     db[1].commit()
 
     # Retrieve the last inserted ID using LAST_INSERT_ID()
     new_reservationdetails_id = db[0].lastrowid
+
+    for item in items_list:
+        if item['category'] == "uniform":
+            item_id = item['id']
+            quantity = item['stock']
+
+            # Update the uniformQuantityAvailability field in your database
+            update_query = "UPDATE uniform SET uniformQuantityAvailability = uniformQuantityAvailability - %s WHERE uniformID = %s"
+            db[0].execute(update_query, (quantity, item_id))
+            db[1].commit()
+        else:
+            item_id = item['id']
+            quantity = item['stock']
+
+            # Update the uniformQuantityAvailability field in your database
+            update_query = "UPDATE book SET bookquantityAvailability = bookquantityAvailability - %s WHERE bookID = %s"
+            db[0].execute(update_query, (quantity, item_id))
+            db[1].commit()
 
     return {
         "reservationdetailsID": new_reservationdetails_id,
@@ -165,6 +191,28 @@ async def set_reservation_status(
     if db[0].rowcount > 0:
         db[1].commit()
         return {"message": "Reservation status updated successfully"}
+    
+    # If no rows were affected, reservation details not found
+    raise HTTPException(status_code=404, detail="Reservation details not found")
+
+@ReservationdetailsRouter.put("/reservationdetails/items/{reservationdetailsID}", response_model=dict)
+async def set_items(
+    reservationdetailsID: int,
+    items: str = Form(...), 
+    totalAmount: int = Form(...),
+    db=Depends(get_db)
+):
+    
+    items_str = json.dumps(items)
+    logger.info("ITEMS STRINGGGGGGGGGGG", items_str)
+    # logger.info("ITEMS OBEJCTTTTTTTTTTTTT", items)
+    query = "UPDATE reservationdetails SET items = %s, totalAmount = %s WHERE reservationdetailsID = %s"
+    db[0].execute(query, (items_str, totalAmount, reservationdetailsID))
+
+    # Check if the update was successful
+    if db[0].rowcount > 0:
+        db[1].commit()
+        return {"message": "Reservation items updated successfully"}
     
     # If no rows were affected, reservation details not found
     raise HTTPException(status_code=404, detail="Reservation details not found")

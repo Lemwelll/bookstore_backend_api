@@ -13,11 +13,11 @@ async def read_books(
     query = "SELECT mngstore, bookID, mngbkstore, bookTitle, bookquantityAvailability, bookpriceDetails FROM book"
     db[0].execute(query)
     books = [{
-        # "mngstore": book[0], 
-        # "bookID": book[1], 
-        # "mngbkstore": book[2], 
-        # "bookTitle": book[3], 
-        # "bookquantityAvailability": book[4], 
+        # "mngstore": book[0],
+        # "bookID": book[1],
+        # "mngbkstore": book[2],
+        # "bookTitle": book[3],
+        # "bookquantityAvailability": book[4],
         # "bookpriceDetails": book[5]
 
         "id": book[1],
@@ -32,7 +32,7 @@ async def read_books(
 
 @BookRouter.get("/book/{book_id}", response_model=dict)
 async def read_book_by_id(
-    book_id: int, 
+    book_id: int,
     db=Depends(get_db)
 ):
     query = "SELECT mngstore, bookID, mngbkstore, bookTitle, bookquantityAvailability, bookpriceDetails FROM book WHERE bookID = %s"
@@ -78,7 +78,7 @@ async def update_book(
     if db[0].rowcount > 0:
         db[1].commit()
         return {"message": "Book updated successfully"}
-    
+
     # If no rows were affected, book not found
     raise HTTPException(status_code=404, detail="Book not found")
 
