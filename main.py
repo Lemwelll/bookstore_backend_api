@@ -12,7 +12,7 @@ from model.uniformdetails import UniformdetailsRouter
 app = FastAPI()
 
 origins = [
-    # "http://localhost:5000",   Ito po yung ginamit kong URL for frontend - Jem Pillora
+    "http://localhost:5000",   #Ito po yung ginamit kong URL for frontend - Jem Pillora
     "http://localhost:8000",
     "https://uicbookstore.netlify.app",
 ]
