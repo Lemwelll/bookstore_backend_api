@@ -20,7 +20,7 @@ db_config = {
 
 
 # ETO PO YUNG GINAMIT KONG CONFIG FOR DATABASE
-# db_config = {
+#db_config = {
 #    "host": "localhost",
 #    "user": "root",
 #    "password": "",

@@ -8,6 +8,7 @@ from model.reservation import ReservationRouter
 from model.reservationdetails import ReservationdetailsRouter
 from model.bookdetails import BookdetailsRouter
 from model.uniformdetails import UniformdetailsRouter
+from model.notification import NotificationRouter
 
 app = FastAPI()
 
@@ -34,3 +35,4 @@ app.include_router(ReservationRouter, prefix="/api")
 app.include_router(ReservationdetailsRouter, prefix="/api")
 app.include_router(BookdetailsRouter, prefix="/api")
 app.include_router(UniformdetailsRouter, prefix="/api")
+app.include_router(NotificationRouter, prefix="/api")

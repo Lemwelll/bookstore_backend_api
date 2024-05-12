@@ -182,10 +182,17 @@ async def update_reservation(
 async def set_reservation_status(
     reservationdetailsID: int,
     status: str = Form(...), 
+    studentID: str =Form(...),
+    message: str =Form(...),
     db=Depends(get_db)
 ):
     query = "UPDATE reservationdetails SET status = %s WHERE reservationdetailsID = %s"
     db[0].execute(query, (status, reservationdetailsID))
+
+    # Push notification after
+    query_notification = "INSERT INTO notifications (message, studentID) VALUES (%s, %s)"
+    db[0].execute(query_notification, (message, studentID))
+    db[1].commit()
 
     # Check if the update was successful
     if db[0].rowcount > 0:
@@ -234,6 +241,41 @@ async def delete_reservation(
         # Delete the reservation details
         query_delete_reservation = "DELETE FROM reservationdetails WHERE reservationdetailsID = %s"
         db[0].execute(query_delete_reservation, (reservationdetailsID,))
+        db[1].commit()
+
+        return {"success": True, "message": "Reservation details deleted successfully"}
+    except Exception as e:
+        # Handle other exceptions if necessary
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    finally:
+        # Close the database cursor
+        db[0].close()
+
+
+@ReservationdetailsRouter.delete("/reservationdetailsadmin/{reservationdetailsID}", response_model=dict)
+async def delete_reservation(
+    reservationdetailsID: int,
+    studentID: int = Form(...), 
+    message: str = Form(...),
+    db=Depends(get_db)
+):
+    try:
+        # Check if the reservation details exist
+        query_check_reservation = "SELECT reservationdetailsID FROM reservationdetails WHERE reservationdetailsID = %s"
+        db[0].execute(query_check_reservation, (reservationdetailsID,))
+        existing_reservation = db[0].fetchone()
+
+        if not existing_reservation:
+            raise HTTPException(status_code=404, detail="Reservation details not found")
+
+        # Delete the reservation details
+        query_delete_reservation = "DELETE FROM reservationdetails WHERE reservationdetailsID = %s"
+        db[0].execute(query_delete_reservation, (reservationdetailsID,))
+        db[1].commit()
+
+        # Push notification after
+        query_notification = "INSERT INTO notifications (message, studentID) VALUES (%s, %s)"
+        db[0].execute(query_notification, (message, studentID))
         db[1].commit()
 
         return {"success": True, "message": "Reservation details deleted successfully"}
